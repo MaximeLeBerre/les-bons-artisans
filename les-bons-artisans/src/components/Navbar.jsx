@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,9 +28,22 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
 
+  const [userConnected, setUserConnected] = useState(false);
+
   const clearStorage = () => {
     localStorage.clear();
+    setUserConnected(false);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (token) {
+      setUserConnected(true);
+    } else {
+      setUserConnected(false);
+    }
+  });
 
   return (
     <div className={classes.root}>
@@ -40,9 +54,15 @@ export default function Navbar() {
               Les Bons Artisans
             </Link>
           </Typography>
-          <Link to="/login" className={classes.link}>
-            <Button className={classes.btn} onClick={clearStorage}>Connection/ Déconnection</Button>
-          </Link>
+          {!userConnected ? (
+            <Link to="/login" className={classes.link}>
+              <Button className={classes.btn}>Connection</Button>
+            </Link>
+          ) : (
+            <Link to="/login" className={classes.link}>
+              <Button className={classes.btn} onClick={clearStorage}>Déconnection</Button>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
     </div>

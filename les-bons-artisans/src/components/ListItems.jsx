@@ -37,12 +37,14 @@ function ListItem() {
     }
   };
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/object', axiosConfig).then((res) => {
-      const data = res.data;
-      setItems(data);
-    });
-  }, [items]);
+  const getItems = async () => {
+    const res = await axios.get('http://localhost:5000/api/object', axiosConfig);
+    setItems(res.data);
+  };
+
+  useEffect(async () => {
+    getItems();
+  }, []);
 
   return (
     <>
@@ -61,6 +63,9 @@ function ListItem() {
         className={classes.container}
       >
         <div className={classes.subContainer}>
+          {items.length === 0 && (
+            // eslint-disable-next-line max-len
+            <p>On dirait bien que la boutique est vide, n&apos;hesites pas à ajouter des articles</p>)}
           {items.map((item) => (
             <Item
               key={item._id + 1}

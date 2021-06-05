@@ -47,6 +47,7 @@ export default function Item({
 
   const deleteObject = () => {
     axios.delete(`http://localhost:5000/api/object/${id}`, axiosConfig);
+    window.location.reload();
   };
 
   return (
