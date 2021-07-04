@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Item from './Item';
-import ButtonAdd from './Button';
+import ButtonAdd from './ButtonAdd';
 
 const useStyles = makeStyles({
   title: {
@@ -30,18 +30,15 @@ function ListItem() {
   const [items, setItems] = useState([]);
   const token = localStorage.getItem('token');
   const classes = useStyles();
-
   const axiosConfig = {
     headers: {
       Authorization: `Bearer ${token}`
     }
   };
-
   const getItems = async () => {
     const res = await axios.get('http://localhost:5000/api/object', axiosConfig);
     setItems(res.data);
   };
-
   useEffect(async () => {
     getItems();
   }, []);
@@ -65,7 +62,7 @@ function ListItem() {
         <div className={classes.subContainer}>
           {items.length === 0 && (
             // eslint-disable-next-line max-len
-            <p>On dirait bien que la boutique est vide, n&apos;hesites pas à ajouter des articles</p>)}
+            <p>On dirait bien que la boutique est vide, n&apos;hésites pas à ajouter des articles.</p>)}
           {items.map((item) => (
             <Item
               key={item._id + 1}

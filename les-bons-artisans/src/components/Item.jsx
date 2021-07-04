@@ -34,7 +34,7 @@ export default function Item({
   price,
   rating,
   warrantyYears,
-  available
+  available = true
 }) {
   const classes = useStyles();
   const token = localStorage.getItem('token');
@@ -64,15 +64,23 @@ export default function Item({
             </p>
             <p>
               Prix :
+              {' '}
               {price}
+              €
             </p>
             <p>
               Note :
+              {' '}
               {rating}
+              {' '}
+              / 5
             </p>
             <p>
               Années de garantie :
+              {' '}
               {warrantyYears}
+              {' '}
+              ans
             </p>
             <p>
               Disponible :

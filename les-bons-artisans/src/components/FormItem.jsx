@@ -125,7 +125,7 @@ function FormItem({ history }) {
         price: parseFloat(values.price),
         rating: parseFloat(values.rating),
         warranty_years: parseFloat(values.warranty_years),
-        available: (values.available === 'true')
+        available: (values.available === true)
       };
       axios.post('http://localhost:5000/api/object', res, axiosConfig)
         .then((reponse) => reponse)

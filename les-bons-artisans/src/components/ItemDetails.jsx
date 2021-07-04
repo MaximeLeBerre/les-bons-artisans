@@ -31,35 +31,29 @@ function ItemDetails({ history }) {
       Authorization: `Bearer ${token}`
     }
   };
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState(null);
   useEffect(() => {
     axios.get(`http://localhost:5000/api/object/${id}`, axiosConfig).then((res) => {
-      const data = [res.data];
-      setItem(data);
+      console.log(res.data);
+      setItem(res.data);
     });
   }, [id]);
-  const defaultvalues = {
-    name: item.name,
-    type: item.type,
-    price: item.price,
-    rating: item.rating,
-    warranty_years: item.warranty_years,
-    available: item.available
-  };
-  const [formValues, setFormValues] = useState(defaultvalues);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
+    setItem({
+      ...item,
       [name]: value
     });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`http://localhost:5000/api/object/${id}`, formValues, axiosConfig)
+    axios.put(`http://localhost:5000/api/object/${id}`, item, axiosConfig)
       .then((reponse) => reponse);
     history.push('/');
   };
+
+  if (!item) return null;
 
   return (
     <>
@@ -76,7 +70,7 @@ function ItemDetails({ history }) {
             name="name"
             label="Nom"
             type="text"
-            value={formValues.name}
+            value={item.name}
             onChange={handleInputChange}
             style={{
               margin: 15,
@@ -88,7 +82,7 @@ function ItemDetails({ history }) {
             name="type"
             label="Type"
             type="text"
-            defaultValue={formValues.type}
+            defaultValue={item.type}
             onChange={handleInputChange}
             className={classes.textfield}
           />
@@ -97,7 +91,7 @@ function ItemDetails({ history }) {
             name="price"
             label="Prix"
             type="number"
-            value={formValues.price}
+            value={item.price}
             onChange={handleInputChange}
             className={classes.textfield}
           />
@@ -105,7 +99,7 @@ function ItemDetails({ history }) {
             <FormLabel>Note</FormLabel>
             <Select
               name="rating"
-              value={formValues.rating}
+              value={item.rating}
               onChange={handleInputChange}
               className={classes.textfield}
             >
@@ -120,7 +114,7 @@ function ItemDetails({ history }) {
             <FormLabel>Années de garantie</FormLabel>
             <Select
               name="warranty_years"
-              value={formValues.warranty_years}
+              value={item.warranty_years}
               onChange={handleInputChange}
               className={classes.textfield}
             >
@@ -135,7 +129,7 @@ function ItemDetails({ history }) {
             <FormLabel>Disponible</FormLabel>
             <Select
               name="available"
-              value={formValues.available}
+              value={item.available}
               onChange={handleInputChange}
               className={classes.textfield}
             >

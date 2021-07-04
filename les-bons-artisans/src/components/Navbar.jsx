@@ -56,11 +56,11 @@ export default function Navbar() {
           </Typography>
           {!userConnected ? (
             <Link to="/login" className={classes.link}>
-              <Button className={classes.btn}>Connection</Button>
+              <Button className={classes.btn}>Connexion</Button>
             </Link>
           ) : (
             <Link to="/login" className={classes.link}>
-              <Button className={classes.btn} onClick={clearStorage}>Déconnection</Button>
+              <Button className={classes.btn} onClick={clearStorage}>Déconnexion</Button>
             </Link>
           )}
         </Toolbar>

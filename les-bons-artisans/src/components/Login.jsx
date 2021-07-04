@@ -77,7 +77,7 @@ const Login = ({ history }) => {
         <TextField
           id="password"
           name="password"
-          label="Password"
+          label="Mot de passe"
           type={passwordVisisble ? 'text' : 'password'}
           value={formik.values.password}
           onChange={formik.handleChange}
